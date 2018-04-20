@@ -1,0 +1,14 @@
+- name: Add user to admin group
+  user: name={{ user.name }} groups=admin append=yes
+  tags:
+    - sudo
+
+- name: Add user to sudo group
+  user: name={{ user.name }} groups=sudo append=yes
+  tags:
+    - sudo
+
+- name: Copy sudo configuration
+  template: src=sudoers.j2 dest=/etc/sudoers mode=440 validate='visudo -cf %s'
+  tags:
+    - sudo

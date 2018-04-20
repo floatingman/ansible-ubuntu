@@ -15,30 +15,21 @@
     - httpie
     - Pygments
 
-- name: Create public dotfiles directory
-  file: path="{{ ansible_env.HOME }}/{{ dotfiles.path }}/public" state=directory
-  register: public_dotfiles_create
+- name: Add rcm repository
+  apt_repository: repo="ppa:martin-frost/thoughtbot-rcm" state=present
 
-- name: Clone public dotfiles repository
-  git: repo=https://github.com/Benoth/dotfiles.git dest="{{ ansible_env.HOME }}/{{ dotfiles.path }}/public" update=yes accept_hostkey=yes
-  # failed_when: false
+- name: Install rcm
+  apt: pkg=rcm state=latest update_cache=yes cache_valid_time={{ aptcachetime }}
+  when: dotfiles is defined
 
-- name: Configure repository
-  command: git config --local user.email "benoth83@gmail.com"
-  args:
-    chdir: "{{ ansible_env.HOME }}/{{ dotfiles.path }}/public"
-    warn: false
-  when: public_dotfiles_create.changed
+- name: Clone user dotfiles
+  git: repo={{ dotfiles.url }} dest=/home/{{ user.name }}/.dotfiles accept_hostkey=yes update=no
+  when: dotfiles is defined
+  become: yes
+  become_user: "{{ user.name }}"
 
-- name: Configure repository
-  command: git config --local user.name "Benoth"
-  args:
-    chdir: "{{ ansible_env.HOME }}/{{ dotfiles.path }}/public"
-    warn: false
-  when: public_dotfiles_create.changed
-
-- name: Create private dotfiles directory
-  file: path="{{ ansible_env.HOME }}/{{ dotfiles.path }}/private" state=directory
-
-- name: Fix dotfiles directory owner
-  file: path="{{ ansible_env.HOME }}/{{ dotfiles.path }}" owner="{{ ansible_env.USER }}" group="{{ ansible_env.USER }}" recurse=yes
+- name: Install user dotfiles
+  command: rcup {{ dotfiles.rcup_flags }}
+  when: dotfiles is defined
+  become: yes
+  become_user: "{{ user.name }}"

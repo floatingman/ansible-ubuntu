@@ -1,9 +1,26 @@
 ---
 
 # http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
+user:
+  name: dnewman
+  uid: 1000
+  group: dnewman
+  shell: /bin/bash
+  email: dwnewman78@gmail.com
+  log:
+    dir: log
+    rotate: 8
+
+hostname: linuxdev
+
+dotfiles:
+  url: git@github.com:floatingman/dotfiles.git
+  destination: .dotfiles
+  rcup_flags: -fx README.md
+
 aptcachetime: 3600
-locale: "fr_FR.UTF-8"
-timezone: "Europe/Paris"
+locale: "en_US.UTF-8"
+timezone: "America/Chicago"
 chromium:
   set_default: true
   policy: false
@@ -31,6 +48,8 @@ ssh:
   service_enabled: true
   password_auth: false
   root_login: false
+passwordless_sudo:
+  - /usr/bin/openvpn*
 vhosts:
   - template: standard
     vhost: "default70.dev"

@@ -67,3 +67,6 @@
 
 - name: Upgrade installed packages
   apt: upgrade=yes
+
+- include: user.yml
+- include: sudo.yml
