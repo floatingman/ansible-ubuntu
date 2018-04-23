@@ -3,7 +3,7 @@
 # http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
 user:
   name: dnewman
-  uid: 1000
+  uid: 1002
   group: dnewman
   shell: /bin/bash
   email: dwnewman78@gmail.com
@@ -48,6 +48,7 @@ ssh:
   service_enabled: true
   password_auth: false
   root_login: false
+  user_key: "{{ ansible_env.HOME }}/ssh/id_rsa"
 passwordless_sudo:
   - /usr/bin/openvpn*
 vhosts:

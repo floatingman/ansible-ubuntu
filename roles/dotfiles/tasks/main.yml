@@ -9,11 +9,11 @@
     - cowsay
     - fortune
 
-- name: Install dotfiles dependencies with Python PIP
-  pip: name={{ item }} state=latest
-  with_items:
-    - httpie
-    - Pygments
+# - name: Install dotfiles dependencies with Python PIP
+#   pip: name={{ item }} state=latest
+#   with_items:
+#     - httpie
+#     - Pygments
 
 - name: Add rcm repository
   apt_repository: repo="ppa:martin-frost/thoughtbot-rcm" state=present
