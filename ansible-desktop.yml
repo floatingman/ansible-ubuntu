@@ -9,6 +9,7 @@
     - { role: ssh, become: true }
     - { role: dotfiles, become: true }
     - { role: java-openjdk, become: true }
+    - { role: emacs }
     # Server roles
     # - { role: apache2, become: true }
     # - { role: apache2-php, become: true }
@@ -40,13 +41,13 @@
     - { role: desktop, become: true }
     - { role: desktop-cleanup, become: true }
     - { role: desktop-autostart, become: true }
-    - { role: desktop-preferences-unity }
+    - { role: desktop-preferences-unity, become: true }
     # - { role: adapta-theme, become: true }
     # - { role: albert, become: true }
     # - { role: altyo, become: true }
     # - { role: arc-theme, become: true }
     # - { role: atom, become: true }
-    # - { role: chromium, become: true }
+    - { role: chromium, become: true }
     # - { role: claws-mail, become: true }
     # - { role: compton, become: true }
     # - { role: copyq, become: true }

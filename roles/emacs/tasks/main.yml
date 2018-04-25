@@ -1,0 +1,15 @@
+---
+
+- name: Add Emacs25 repository
+  apt_repository: repo="ppa:kelleyk/emacs" state=present
+
+- name: Install Emacs
+  apt: pkg=emacs25 state=latest update_cache=yes cache_valid_time={{ aptcachetime }}
+
+- name: Install emacs config
+  git:
+    repo: ssh://git@github.com/floatingman/.emacs.d.git
+    key_file: /home/dnewman/.ssh/githubmaster.key
+    dest: /home/dnewman/.emacs.d
+    version: literate
+    accept_hostkey: yes

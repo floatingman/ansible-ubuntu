@@ -3,7 +3,6 @@
 # http://docs.ansible.com/ansible/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
 user:
   name: dnewman
-  uid: 1002
   group: dnewman
   shell: /bin/bash
   email: dwnewman78@gmail.com
@@ -19,7 +18,6 @@ dotfiles:
   rcup_flags: -fx README.md
 
 aptcachetime: 3600
-locale: "en_US.UTF-8"
 timezone: "America/Chicago"
 chromium:
   set_default: true

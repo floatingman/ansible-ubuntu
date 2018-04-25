@@ -9,6 +9,12 @@
     - cowsay
     - fortune
 
+- name: Add fasd repository
+  apt_repository: repo="ppa:aacebedo/fasd" state=present
+
+- name: Install fasd
+  apt: pkg=fasd state=latest update_cache=yes cache_valid_time={{ aptcachetime }}
+
 # - name: Install dotfiles dependencies with Python PIP
 #   pip: name={{ item }} state=latest
 #   with_items:
@@ -33,3 +39,4 @@
   when: dotfiles is defined
   become: yes
   become_user: "{{ user.name }}"
+
